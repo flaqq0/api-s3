@@ -17,21 +17,22 @@ def lambda_handler(event, context):
         # Decodificar el archivo Base64 y subirlo a S3
         s3_client.put_object(Bucket=bucket_name, Key=file_name, Body=base64.b64decode(base_64_str))
         
+        # Respuesta serializada
         return {
             'statusCode': 200,
-            'body': f'File {file_name} uploaded to bucket {bucket_name}.'
+            'body': json.dumps(f'File {file_name} uploaded to bucket {bucket_name}.')
         }
     
     except KeyError as e:
         # Manejar el caso en que falta una clave en el cuerpo
         return {
             'statusCode': 400,
-            'error': f'Missing key in the request body: {str(e)}'
+            'body': json.dumps(f'Missing key in the request body: {str(e)}')
         }
     
     except Exception as e:
         # Manejar errores generales
         return {
             'statusCode': 500,
-            'error': f'Error occurred: {str(e)}'
+            'body': json.dumps(f'Error occurred: {str(e)}')
         }
