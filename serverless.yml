@@ -6,7 +6,7 @@ provider:
   runtime: python3.12	
   # Default memory size for functions (default: 256MB)
   memorySize: 256
-  timeout: 30
+  timeout: 46
   iam:
     role: arn:aws:iam::541799178928:role/LabRole
 
